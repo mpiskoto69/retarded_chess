@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -16,16 +15,9 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-        Debug.Log("Player HP: " + currentHealth);
+        Debug.Log(gameObject.name + " HP: " + currentHealth);
 
         if (currentHealth <= 0f)
-        {
-            Die();
-        }
-    }
-
-    void Die()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Debug.Log(gameObject.name + " died");
     }
 }

@@ -1,41 +1,47 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public bool bishopDefeated;
-    public bool knightDefeated;
-    public bool rookDefeated;
+    public BossType currentBoss;
 
-    public BossType currentBoss = BossType.None;
+    private HashSet<BossType> defeatedBosses = new HashSet<BossType>();
+
+    public int nunRelics = 0;
+    public int witchRelics = 0;
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    public bool IsBossDefeated(BossType type)
+    public bool IsBossDefeated(BossType bossType)
     {
-        if (type == BossType.Bishop) return bishopDefeated;
-        if (type == BossType.Knight) return knightDefeated;
-        if (type == BossType.Rook) return rookDefeated;
-
-        return false;
+        return defeatedBosses.Contains(bossType);
     }
 
-    public void DefeatBoss(BossType type)
+    public void MarkBossDefeated(BossType bossType)
     {
-        if (type == BossType.Bishop) bishopDefeated = true;
-        if (type == BossType.Knight) knightDefeated = true;
-        if (type == BossType.Rook) rookDefeated = true;
+        if (!defeatedBosses.Contains(bossType))
+            defeatedBosses.Add(bossType);
+    }
+
+    public void AddRelicToNun()
+    {
+        nunRelics++;
+    }
+
+    public void AddRelicToWitch()
+    {
+        witchRelics++;
     }
 }

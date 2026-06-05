@@ -1,47 +1,24 @@
 using UnityEngine;
-
 public class ThirdPersonCamera : MonoBehaviour
 {
     public Transform target;
-
-    public float distance = 7f;
-    public float height = 4f;
-
-    public float mouseSensitivity = 4f;
-
-    float yaw;
-    float pitch = 15f;
-
-    void Start()
-    {
-        if (target == null)
-        {
-            Debug.LogError("Camera target missing.");
-            enabled = false;
-            return;
-        }
-
-        yaw = target.eulerAngles.y;
-    }
+    public Vector3 offset = new Vector3(0f, 8f, -12f);
+    public float followSpeed = 8f;
+    public float lookHeight = 2f;
 
     void LateUpdate()
     {
-        yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-        pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+        if (target == null) return;
 
-        pitch = Mathf.Clamp(pitch, -20f, 45f);
+        // Offset is FIXED in world space — camera never orbits
+        Vector3 desiredPosition = target.position + offset;
 
-        Quaternion rotation =
-            Quaternion.Euler(pitch, yaw, 0);
-
-        Vector3 offset =
-            rotation * new Vector3(0, height, -distance);
-
-        transform.position =
-            target.position + offset;
-
-        transform.LookAt(
-            target.position + Vector3.up * 2f
+        transform.position = Vector3.Lerp(
+            transform.position,
+            desiredPosition,
+            followSpeed * Time.deltaTime
         );
+
+        transform.LookAt(target.position + Vector3.up * lookHeight);
     }
 }

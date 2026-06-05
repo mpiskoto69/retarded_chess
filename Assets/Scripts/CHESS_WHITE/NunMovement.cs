@@ -1,81 +1,93 @@
 using UnityEngine;
-
+[RequireComponent(typeof(CharacterController))]
 public class NunMovement : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed = 18f;
-    public float rotationSpeed = 18f;
+    public float moveSpeed = 10f;
+    public float turnSpeed = 8f;
     public float jumpHeight = 1.2f;
     public float gravity = -25f;
 
+    // If your model still faces wrong, flip this to 180
+    [Header("Model Facing Fix")]
     [Header("Board Limits")]
-    public float minX = 421f;
-    public float maxX = 581f;
-    public float minZ = 549f;
-    public float maxZ = 709f;
+public bool useBoardLimits = true;
+public float minX = 421f;
+public float maxX = 581f;
+public float minZ = 549f;
+public float maxZ = 709f;
+    public float modelYawOffset = 0f;
 
     [Header("Animator")]
     public Animator animator;
 
-    public static bool IsMoving;
-    public static bool IsGrounded = true;
-    public static bool AttackPressed;
-
     private CharacterController controller;
     private Vector3 moveDir;
     private float verticalVelocity;
+    private Quaternion targetRotation;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
-
         if (animator != null)
             animator.applyRootMotion = false;
+        targetRotation = transform.rotation;
     }
 
     void Update()
     {
         ReadInput();
         Move();
-        HandleJump();
-        HandleAttack();
-        UpdateAnimator();
+        Jump();
+        Attack();
+        Animate();
     }
 
     void ReadInput()
     {
-        float x = 0f;
-        float z = 0f;
+        moveDir = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.LeftArrow)) x = -1f;
-        if (Input.GetKey(KeyCode.RightArrow)) x = 1f;
-        if (Input.GetKey(KeyCode.UpArrow)) z = 1f;
-        if (Input.GetKey(KeyCode.DownArrow)) z = -1f;
+        if (Input.GetKey(KeyCode.UpArrow))    moveDir = Vector3.back;
+        if (Input.GetKey(KeyCode.DownArrow))   moveDir = Vector3.forward;
+        if (Input.GetKey(KeyCode.RightArrow))  moveDir = Vector3.left;
+        if (Input.GetKey(KeyCode.LeftArrow))   moveDir = Vector3.right;
 
-        moveDir = new Vector3(x, 0f, z).normalized;
-        IsMoving = moveDir.sqrMagnitude > 0.01f;
+        // Diagonal support: normalize so diagonal isn't faster
+        if (moveDir.sqrMagnitude > 0.01f)
+        {
+            moveDir.Normalize();
+            // Rotation is derived from movement direction + optional model offset
+            targetRotation = Quaternion.LookRotation(moveDir)
+                             * Quaternion.Euler(0f, modelYawOffset, 0f);
+        }
     }
 
- void Move()
+void Move()
 {
-    if (controller == null) return;
-
-    IsGrounded = controller.isGrounded;
-
-    if (IsGrounded && verticalVelocity < 0f)
+    if (controller.isGrounded && verticalVelocity < 0f)
         verticalVelocity = -2f;
 
     verticalVelocity += gravity * Time.deltaTime;
 
-    Vector3 horizontalMotion = moveDir * moveSpeed * Time.deltaTime;
-    Vector3 verticalMotion = Vector3.up * verticalVelocity * Time.deltaTime;
+    transform.rotation = Quaternion.Slerp(
+        transform.rotation,
+        targetRotation,
+        turnSpeed * Time.deltaTime
+    );
 
-    controller.Move(horizontalMotion);
-    controller.Move(verticalMotion);
+    Vector3 motion = moveDir * moveSpeed;
+    motion.y = verticalVelocity;
 
+    controller.Move(motion * Time.deltaTime);
+
+    if (useBoardLimits)
+        ClampToBoard();
+}
+
+void ClampToBoard()
+{
     Vector3 p = transform.position;
 
     float clampedX = Mathf.Clamp(p.x, minX, maxX);
@@ -89,58 +101,39 @@ public class NunMovement : MonoBehaviour
 
     if (correction.sqrMagnitude > 0.0001f)
         controller.Move(correction);
-
-    if (IsMoving)
-    {
-        Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
-            rotationSpeed * Time.deltaTime
-        );
-    }
 }
-    void HandleJump()
+    void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
-            if (animator != null)
+            if (animator != null && HasParameter("Jump"))
                 animator.SetTrigger("Jump");
         }
     }
 
-    void HandleAttack()
+    void Attack()
     {
-        AttackPressed = Input.GetKeyDown(KeyCode.Return);
-
-        if (AttackPressed && animator != null)
-            animator.SetTrigger("Attack");
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (animator != null && HasParameter("Attack"))
+                animator.SetTrigger("Attack");
+        }
     }
 
-    void UpdateAnimator()
+    void Animate()
     {
         if (animator == null) return;
-
-        animator.SetBool("IsMoving", IsMoving);
-
-        if (HasParameter("IsGrounded"))
-            animator.SetBool("IsGrounded", IsGrounded);
-
-        if (HasParameter("Speed"))
-            animator.SetFloat("Speed", IsMoving ? 1f : 0f);
+        bool moving = moveDir.sqrMagnitude > 0.01f;
+        if (HasParameter("IsMoving"))  animator.SetBool("IsMoving", moving);
+        if (HasParameter("Speed"))     animator.SetFloat("Speed", moving ? 1f : 0f);
+        if (HasParameter("IsGrounded")) animator.SetBool("IsGrounded", controller.isGrounded);
     }
 
     bool HasParameter(string parameterName)
     {
         foreach (AnimatorControllerParameter p in animator.parameters)
-        {
-            if (p.name == parameterName)
-                return true;
-        }
-
+            if (p.name == parameterName) return true;
         return false;
     }
 }

@@ -14,45 +14,27 @@ public class ChessPieceTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (triggered) return;
+        if (!other.CompareTag("Player")) return;
+        if (data == null) return;
+        if (!data.isBossPiece) return;
+        if (data.bossType == BossType.None) return;
 
-        if (!other.CompareTag("Player"))
-            return;
-
-        if (data == null)
-            return;
-
-        if (!data.isBossPiece)
-            return;
-
-        if (data.bossType == BossType.None)
-            return;
-
-        if (GameManager.Instance == null)
-        {
-            Debug.LogError("GameManager not found!");
-            return;
-        }
-
-        if (GameManager.Instance.IsBossDefeated(data.bossType))
+        if (GameManager.Instance != null &&
+            GameManager.Instance.IsBossDefeated(data.bossType))
             return;
 
         triggered = true;
 
-        GameManager.Instance.currentBoss = data.bossType;
+        if (GameManager.Instance != null)
+            GameManager.Instance.currentBoss = data.bossType;
 
-        switch (data.bossType)
-        {
-            case BossType.Bishop:
-                SceneManager.LoadScene("BISHOPGRAVEYARD");
-                break;
+        if (data.bossType == BossType.Bishop)
+            SceneManager.LoadScene("BISHOPGARVEYARD");
 
-            case BossType.Knight:
-                SceneManager.LoadScene("KnightArena");
-                break;
+        if (data.bossType == BossType.Knight)
+            SceneManager.LoadScene("KnightArena");
 
-            case BossType.Rook:
-                SceneManager.LoadScene("RookArena");
-                break;
-        }
+        if (data.bossType == BossType.Rook)
+            SceneManager.LoadScene("RookArena");
     }
 }

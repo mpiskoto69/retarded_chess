@@ -8,7 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.001
-    second: {fileID: 2525194982225048550, guid: 426d27cbcbd141b409ed59cb38017389, type: 3}
+    second: {fileID: -7493948414422489037, guid: 426d27cbcbd141b409ed59cb38017389, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Material.001_baseColor
+    second: {fileID: 2800000, guid: 33c8bfb6d69b094458662251465537d2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Material.001_metallic
+    second: {fileID: 2800000, guid: d3fa5f521fc87104b9e584115dd2db73, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Material.001_normal
+    second: {fileID: 2800000, guid: e89b1af2d551ec14588f620bf2bc8d95, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Material.001_roughness
+    second: {fileID: 2800000, guid: c78c720c2ba14654b8b5b59fbc490071, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
