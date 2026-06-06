@@ -12,23 +12,28 @@ public class PlayerBossAttack : MonoBehaviour
             Attack();
     }
 
-    void Attack()
+   void Attack()
+{
+    Debug.Log("PLAYER ATTACK");
+
+    Collider[] hits = Physics.OverlapSphere(
+        transform.position,
+        attackRange,
+        bossLayer
+    );
+
+    Debug.Log("FOUND " + hits.Length + " COLLIDERS");
+
+    foreach (Collider hit in hits)
     {
-        Collider[] hits = Physics.OverlapSphere(
-            transform.position,
-            attackRange,
-            bossLayer
-        );
+        BossAI boss = hit.GetComponentInParent<BossAI>();
 
-        foreach (Collider hit in hits)
+        if (boss != null)
         {
-            BossAI boss = hit.GetComponentInParent<BossAI>();
-
-            if (boss != null)
-            {
-                boss.TakeHit(gameObject);
-                break;
-            }
+            Debug.Log("HIT BOSS");
+            boss.TakeHit(gameObject);
+            break;
         }
     }
+}
 }

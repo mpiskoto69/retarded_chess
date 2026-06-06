@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 8f;
     public float currentHealth;
 
+    public bool isDead = false;
+
     void Awake()
     {
         currentHealth = maxHealth;
@@ -17,21 +19,17 @@ public class PlayerHealth : MonoBehaviour
         if (GameManager.Instance == null)
             return;
 
-        if (isWitch)
-            currentHealth = GameManager.Instance.witchHealth;
-        else
-            currentHealth = GameManager.Instance.nunHealth;
+        currentHealth = isWitch
+            ? GameManager.Instance.witchHealth
+            : GameManager.Instance.nunHealth;
     }
 
     public void TakeDamage(float amount)
     {
-        currentHealth -= amount;
+        if (isDead) return;
 
-        currentHealth = Mathf.Clamp(
-            currentHealth,
-            0f,
-            maxHealth
-        );
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
         if (GameManager.Instance != null)
         {
@@ -41,13 +39,24 @@ public class PlayerHealth : MonoBehaviour
                 GameManager.Instance.SaveNunHealth(currentHealth);
         }
 
-        Debug.Log(
-            gameObject.name +
-            " HP: " +
-            currentHealth
-        );
+        Debug.Log(gameObject.name + " HP: " + currentHealth);
 
         if (currentHealth <= 0f)
-            Debug.Log(gameObject.name + " died");
+            Die();
+    }
+
+    void Die()
+    {
+        isDead = true;
+        Debug.Log(gameObject.name + " died");
+
+        MonoBehaviour movement = GetComponent<NunMovement>();
+        if (movement != null) movement.enabled = false;
+
+        MonoBehaviour witchMovement = GetComponent<WitchMovement>();
+        if (witchMovement != null) witchMovement.enabled = false;
+
+        PlayerBossAttack attack = GetComponent<PlayerBossAttack>();
+        if (attack != null) attack.enabled = false;
     }
 }

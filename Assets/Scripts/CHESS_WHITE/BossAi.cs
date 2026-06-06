@@ -11,73 +11,84 @@ public class BossAI : MonoBehaviour
     public int hitsToDie = 3;
     public float damage = 0.5f;
 
-    [Header("Movement")]
-    public float chaseDistance = 20f;
-    public float attackDistance = 3f;
-    public float diagonalOffset = 3f;
-    public float strafeSpeed = 2f;
-
     [Header("Attack")]
-    public float attackCooldown = 1.5f;
+    public float attackRange = 5f;
+    public float attackCooldown = 2f;
+
+    [Header("Movement")]
+    public float moveSpeed = 3.5f;
 
     [Header("Animator")]
     public Animator animator;
 
     private NavMeshAgent agent;
     private int hitsTaken = 0;
-    private float nextAttackTime;
-    private int strafeSide = 1;
+    private float nextAttackTime = 0f;
+    private bool isDead = false;
 
-    void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
+    public int CurrentHits => hitsTaken;
+    public int MaxHits => hitsToDie;
 
-        if (animator == null)
-            animator = GetComponentInChildren<Animator>();
+  void Awake()
+{
+    agent = GetComponent<NavMeshAgent>();
 
-        strafeSide = Random.value > 0.5f ? 1 : -1;
-    }
+    agent.speed = moveSpeed;
+    agent.stoppingDistance = attackRange;
+    agent.updateRotation = false;
+
+    if (animator == null)
+        animator = GetComponentInChildren<Animator>();
+
+    animator.SetBool("Die", false);
+}
 
     void Update()
     {
-        if (targetPlayer == null || agent == null) return;
+        if (isDead) return;
+        if (targetPlayer == null) return;
 
-        float distance = Vector3.Distance(transform.position, targetPlayer.position);
+        float xDifference = Mathf.Abs(transform.position.x - targetPlayer.position.x);
+        float zDifference = Mathf.Abs(transform.position.z - targetPlayer.position.z);
 
         FaceTarget();
 
-        if (distance <= attackDistance)
+        if (xDifference <= attackRange && zDifference <= attackRange)
         {
             agent.isStopped = true;
 
             if (Time.time >= nextAttackTime)
             {
-                Attack();
+                DoAttack();
                 nextAttackTime = Time.time + attackCooldown;
             }
         }
         else
         {
             agent.isStopped = false;
-            ChaseDiagonal(distance);
+            agent.SetDestination(targetPlayer.position);
         }
 
-        Animate();
+        UpdateAnimator();
     }
 
-    void ChaseDiagonal(float distance)
+    void DoAttack()
     {
-        Vector3 dirToPlayer = (targetPlayer.position - transform.position).normalized;
-        dirToPlayer.y = 0f;
+        Debug.Log(gameObject.name + " ATTACK!");
 
-        Vector3 sideDir = Vector3.Cross(Vector3.up, dirToPlayer).normalized;
+        if (animator != null && HasParameter("Attack"))
+            animator.SetTrigger("Attack");
 
-        float sideWave = Mathf.Sin(Time.time * strafeSpeed) * diagonalOffset;
-        Vector3 diagonalTarget = targetPlayer.position
-                                 - dirToPlayer * attackDistance
-                                 + sideDir * sideWave * strafeSide;
+        PlayerHealth hp = targetPlayer.GetComponent<PlayerHealth>();
 
-        agent.SetDestination(diagonalTarget);
+        if (hp == null)
+        {
+            Debug.LogError("NO PlayerHealth on target: " + targetPlayer.name);
+            return;
+        }
+
+        hp.TakeDamage(damage);
+        Debug.Log(targetPlayer.name + " lost " + damage + " HP");
     }
 
     void FaceTarget()
@@ -87,47 +98,38 @@ public class BossAI : MonoBehaviour
 
         if (dir.sqrMagnitude < 0.01f) return;
 
-        Quaternion targetRot = Quaternion.LookRotation(dir);
+        Quaternion rot = Quaternion.LookRotation(dir);
 
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
-            targetRot,
+            rot,
             8f * Time.deltaTime
         );
     }
 
-    void Attack()
-    {
-        if (animator != null && HasParameter("Attack"))
-            animator.SetTrigger("Attack");
+public void TakeHit(GameObject attacker)
+{
+    Debug.Log("BOSS GOT HIT");
 
-        PlayerHealth hp = targetPlayer.GetComponent<PlayerHealth>();
+    if (isDead) return;
 
-        if (hp != null)
-            hp.TakeDamage(damage);
+    hitsTaken++;
 
-        Debug.Log(gameObject.name + " attacked " + targetPlayer.name);
-    }
+    Debug.Log("HITS = " + hitsTaken);
 
-    public void TakeHit(GameObject attacker)
-    {
-        hitsTaken++;
-
-       
-
-        Debug.Log(gameObject.name + " hit " + hitsTaken + "/" + hitsToDie);
-
-        if (hitsTaken >= hitsToDie)
-            Die(attacker);
-    }
+    if (hitsTaken >= hitsToDie)
+        Die(attacker);
+}
 
     void Die(GameObject killerPlayer)
     {
-        if (animator != null && HasParameter("Die"))
-            animator.SetTrigger("Die");
+        isDead = true;
 
         if (agent != null)
             agent.isStopped = true;
+
+        if (animator != null && HasParameter("Die"))
+            animator.SetBool("Die", true);
 
         if (BossFightManager.Instance != null)
             BossFightManager.Instance.BossKilled(this, killerPlayer);
@@ -135,7 +137,7 @@ public class BossAI : MonoBehaviour
         enabled = false;
     }
 
-    void Animate()
+    void UpdateAnimator()
     {
         if (animator == null || agent == null) return;
 
@@ -145,7 +147,7 @@ public class BossAI : MonoBehaviour
             animator.SetFloat("Speed", speed);
 
         if (HasParameter("IsMoving"))
-            animator.SetBool("IsMoving", speed > 0.1f);
+            animator.SetBool("IsMoving", speed > 0.1f && !agent.isStopped);
     }
 
     bool HasParameter(string parameterName)
@@ -153,20 +155,9 @@ public class BossAI : MonoBehaviour
         if (animator == null) return false;
 
         foreach (AnimatorControllerParameter p in animator.parameters)
-        {
             if (p.name == parameterName)
                 return true;
-        }
 
         return false;
     }
- public int CurrentHits
-{
-    get { return hitsTaken; }
-}
-
-public int MaxHits
-{
-    get { return hitsToDie; }
-}
 }
