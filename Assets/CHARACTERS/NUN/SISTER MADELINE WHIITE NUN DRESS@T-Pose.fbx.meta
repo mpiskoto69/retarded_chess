@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: IS_Mobile_SM
-    second: {fileID: 2596805337764037638, guid: 794d43493af17c14b9d5366ac9acc8c4, type: 3}
+    second: {fileID: 2596805337764037638, guid: 7c171592bde24c04c9c5ebed42964a83, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule

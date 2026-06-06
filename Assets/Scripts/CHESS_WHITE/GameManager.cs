@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
 
     public int nunRelics = 0;
     public int witchRelics = 0;
-
+    public float nunHealth = 8;
+public float witchHealth = 8;
+    
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,6 +25,16 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    public void SaveNunHealth(float hp)
+{
+    nunHealth = hp;
+}
+
+public void SaveWitchHealth(float hp)
+{
+    witchHealth = hp;
+}
 
     public bool IsBossDefeated(BossType bossType)
     {

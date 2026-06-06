@@ -9,16 +9,18 @@ public class RelicPickup : MonoBehaviour
         allowedPlayer = player;
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (allowedPlayer == null)
+            return;
 
         if (other.gameObject != allowedPlayer)
-        {
-            Debug.Log(other.name + " cannot pick this relic.");
             return;
-        }
+
+        Debug.Log(other.name + " picked up relic!");
 
         BossFightManager.Instance.RelicTaken(other.gameObject);
+
+        gameObject.SetActive(false);
     }
 }

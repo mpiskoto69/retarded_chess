@@ -9,6 +9,9 @@ public class BossFightManager : MonoBehaviour
     public GameObject relic;
     public Transform[] relicSpawnPoints;
 
+    [Header("Return")]
+    public string boardSceneName = "first";
+
     private GameObject allowedPlayer;
     private bool relicSpawned = false;
 
@@ -27,12 +30,19 @@ public class BossFightManager : MonoBehaviour
         relicSpawned = true;
         allowedPlayer = killerPlayer;
 
+        if (relicSpawnPoints == null || relicSpawnPoints.Length == 0)
+        {
+            Debug.LogError("No relic spawn points assigned!");
+            return;
+        }
+
         Transform point = relicSpawnPoints[Random.Range(0, relicSpawnPoints.Length)];
 
         relic.transform.position = point.position;
         relic.SetActive(true);
 
         RelicPickup pickup = relic.GetComponent<RelicPickup>();
+
         if (pickup != null)
             pickup.SetAllowedPlayer(allowedPlayer);
 
@@ -45,7 +55,18 @@ public class BossFightManager : MonoBehaviour
 
         Debug.Log(player.name + " got the relic!");
 
-        // εδώ αργότερα προσθέτεις relic score
-        SceneManager.LoadScene("first");
+        if (GameManager.Instance != null)
+        {
+            PlayerHealth hp = player.GetComponent<PlayerHealth>();
+
+            if (hp != null && hp.isWitch)
+                GameManager.Instance.AddRelicToWitch();
+            else
+                GameManager.Instance.AddRelicToNun();
+
+            GameManager.Instance.MarkBossDefeated(GameManager.Instance.currentBoss);
+        }
+
+        SceneManager.LoadScene(boardSceneName);
     }
 }

@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: 38cba85bb7bf8f044b7b78d236a4bf84
+guid: 2c37fd1ada12fc2408e5699ea603b0e8
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert4
-    second: {fileID: 2100000, guid: e18adc5ed9766104682dfc45e0455c2b, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Priest_AO
-    second: {fileID: 2800000, guid: b85ff7d6f6de0aa48b96cc5cf3ceba01, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Priest_BaseColor
-    second: {fileID: 2800000, guid: 1ec2268a9d432164584cf70819f86505, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Priest_Emissive
-    second: {fileID: 2800000, guid: c7376aea09e415e47b8cd47c4c35791b, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Priest_Normal
-    second: {fileID: 2800000, guid: 9c0749b6d5c1e8e48babe350d95590d8, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -121,11 +96,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: c38a0f90524729f4ca81b00950406ba5, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

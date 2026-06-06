@@ -113,8 +113,7 @@ public class BossAI : MonoBehaviour
     {
         hitsTaken++;
 
-        if (animator != null && HasParameter("Hit"))
-            animator.SetTrigger("Hit");
+       
 
         Debug.Log(gameObject.name + " hit " + hitsTaken + "/" + hitsToDie);
 
@@ -161,4 +160,13 @@ public class BossAI : MonoBehaviour
 
         return false;
     }
+ public int CurrentHits
+{
+    get { return hitsTaken; }
+}
+
+public int MaxHits
+{
+    get { return hitsToDie; }
+}
 }
