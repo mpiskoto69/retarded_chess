@@ -14,13 +14,16 @@ public class RelicPickup : MonoBehaviour
         if (allowedPlayer == null)
             return;
 
-        if (other.gameObject != allowedPlayer)
+        bool isAllowedPlayer =
+            other.gameObject == allowedPlayer ||
+            other.transform.IsChildOf(allowedPlayer.transform);
+
+        if (!isAllowedPlayer)
             return;
 
-        Debug.Log(other.name + " picked up relic!");
-
-        BossFightManager.Instance.RelicTaken(other.gameObject);
-
         gameObject.SetActive(false);
+
+        if (BossFightManager.Instance != null)
+            BossFightManager.Instance.RelicTaken(allowedPlayer);
     }
 }

@@ -1,0 +1,21 @@
+using TMPro;
+using UnityEngine;
+
+public class RelicCountUI : MonoBehaviour
+{
+    public TMP_Text nunRelicsText;
+    public TMP_Text witchRelicsText;
+
+    void Start()
+    {
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        if (GameManager.Instance == null) return;
+
+        nunRelicsText.text = "Nun Relics: " + GameManager.Instance.nunRelics;
+        witchRelicsText.text = "Witch Relics: " + GameManager.Instance.witchRelics;
+    }
+}

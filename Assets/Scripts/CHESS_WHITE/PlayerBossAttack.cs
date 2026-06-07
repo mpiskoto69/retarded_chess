@@ -2,38 +2,56 @@ using UnityEngine;
 
 public class PlayerBossAttack : MonoBehaviour
 {
+    [Header("Controls")]
     public KeyCode attackKey = KeyCode.Return;
-    public float attackRange = 4f;
-    public LayerMask bossLayer;
+
+    [Header("Boss")]
+    public BossAI myBoss;
+
+    [Header("Attack")]
+    public float attackRange = 2f;
+
+    private bool bossDefeated = false;
 
     void Update()
     {
+        if (bossDefeated) return;
+
         if (Input.GetKeyDown(attackKey))
             Attack();
     }
 
-   void Attack()
-{
-    Debug.Log("PLAYER ATTACK");
-
-    Collider[] hits = Physics.OverlapSphere(
-        transform.position,
-        attackRange,
-        bossLayer
-    );
-
-    Debug.Log("FOUND " + hits.Length + " COLLIDERS");
-
-    foreach (Collider hit in hits)
+    void Attack()
     {
-        BossAI boss = hit.GetComponentInParent<BossAI>();
-
-        if (boss != null)
+        if (myBoss == null)
         {
-            Debug.Log("HIT BOSS");
-            boss.TakeHit(gameObject);
-            break;
+            bossDefeated = true;
+            return;
         }
+
+        if (!myBoss.gameObject.activeInHierarchy)
+        {
+            bossDefeated = true;
+            return;
+        }
+
+        float distance = Vector3.Distance(transform.position, myBoss.transform.position);
+
+        Debug.Log("Distance to " + myBoss.name + " = " + distance);
+
+        if (distance > attackRange)
+        {
+            Debug.Log("TOO FAR");
+            return;
+        }
+
+        Debug.Log(name + " HIT " + myBoss.name);
+
+        myBoss.TakeHit(gameObject);
     }
-}
+
+    public void MarkBossDefeated()
+    {
+        bossDefeated = true;
+    }
 }

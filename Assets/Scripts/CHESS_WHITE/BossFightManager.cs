@@ -6,7 +6,7 @@ public class BossFightManager : MonoBehaviour
     public static BossFightManager Instance;
 
     [Header("Relic")]
-    public GameObject relic;
+    public GameObject relicPrefab;
     public Transform[] relicSpawnPoints;
 
     [Header("Return")]
@@ -14,21 +14,38 @@ public class BossFightManager : MonoBehaviour
 
     private GameObject allowedPlayer;
     private bool relicSpawned = false;
+    private bool relicTaken = false;
 
     void Awake()
     {
         Instance = this;
-
-        if (relic != null)
-            relic.SetActive(false);
+        Debug.Log("BossFightManager ready");
     }
 
     public void BossKilled(BossAI boss, GameObject killerPlayer)
     {
-        if (relicSpawned) return;
+        Debug.Log("BossKilled called");
+
+        if (relicSpawned)
+        {
+            Debug.LogWarning("Relic already spawned");
+            return;
+        }
 
         relicSpawned = true;
         allowedPlayer = killerPlayer;
+
+        if (allowedPlayer == null)
+        {
+            Debug.LogError("Killer player is null!");
+            return;
+        }
+
+        if (relicPrefab == null)
+        {
+            Debug.LogError("Relic Prefab is not assigned!");
+            return;
+        }
 
         if (relicSpawnPoints == null || relicSpawnPoints.Length == 0)
         {
@@ -36,34 +53,45 @@ public class BossFightManager : MonoBehaviour
             return;
         }
 
-        Transform point = relicSpawnPoints[Random.Range(0, relicSpawnPoints.Length)];
+        int index = Random.Range(0, relicSpawnPoints.Length);
+        Transform point = relicSpawnPoints[index];
 
-        relic.transform.position = point.position;
-        relic.SetActive(true);
+        if (point == null)
+        {
+            Debug.LogError("Relic spawn point " + index + " is null!");
+            return;
+        }
 
-        RelicPickup pickup = relic.GetComponent<RelicPickup>();
+        GameObject spawnedRelic = Instantiate(
+            relicPrefab,
+            point.position,
+            Quaternion.Euler(-90f, 0f, 0f)
+        );
+
+        spawnedRelic.SetActive(true);
+
+        RelicPickup pickup = spawnedRelic.GetComponent<RelicPickup>();
 
         if (pickup != null)
             pickup.SetAllowedPlayer(allowedPlayer);
+        else
+            Debug.LogError("Spawned relic has no RelicPickup script!");
 
-        Debug.Log("Relic spawned for: " + allowedPlayer.name);
+        Debug.Log("Relic spawned at " + point.name + " for " + allowedPlayer.name);
     }
 
     public void RelicTaken(GameObject player)
     {
+        if (relicTaken) return;
         if (player != allowedPlayer) return;
+
+        relicTaken = true;
 
         Debug.Log(player.name + " got the relic!");
 
         if (GameManager.Instance != null)
         {
-            PlayerHealth hp = player.GetComponent<PlayerHealth>();
-
-            if (hp != null && hp.isWitch)
-                GameManager.Instance.AddRelicToWitch();
-            else
-                GameManager.Instance.AddRelicToNun();
-
+            GameManager.Instance.AddRelicToPlayer(player);
             GameManager.Instance.MarkBossDefeated(GameManager.Instance.currentBoss);
         }
 
