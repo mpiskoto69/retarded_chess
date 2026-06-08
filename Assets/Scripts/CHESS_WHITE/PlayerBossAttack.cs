@@ -6,7 +6,7 @@ public class PlayerBossAttack : MonoBehaviour
     public KeyCode attackKey = KeyCode.Return;
 
     [Header("Boss")]
-    public BossAI myBoss;
+    public MonoBehaviour myBoss;
 
     [Header("Attack")]
     public float attackRange = 2f;
@@ -35,7 +35,7 @@ public class PlayerBossAttack : MonoBehaviour
             return;
         }
 
-        float distance = Vector3.Distance(transform.position, myBoss.transform.position);
+        float distance = GetFlatDistanceToBoss();
 
         Debug.Log("Distance to " + myBoss.name + " = " + distance);
 
@@ -47,7 +47,26 @@ public class PlayerBossAttack : MonoBehaviour
 
         Debug.Log(name + " HIT " + myBoss.name);
 
-        myBoss.TakeHit(gameObject);
+        if (myBoss is BossAI normalBoss)
+        {
+            normalBoss.TakeHit(gameObject);
+        }
+        else if (myBoss is KnightBossAI knightBoss)
+        {
+            knightBoss.TakeHit(gameObject);
+        }
+        else
+        {
+            Debug.LogError(myBoss.name + " is not BossAI or KnightBossAI!");
+        }
+    }
+
+    float GetFlatDistanceToBoss()
+    {
+        Vector2 playerPos = new Vector2(transform.position.x, transform.position.z);
+        Vector2 bossPos = new Vector2(myBoss.transform.position.x, myBoss.transform.position.z);
+
+        return Vector2.Distance(playerPos, bossPos);
     }
 
     public void MarkBossDefeated()

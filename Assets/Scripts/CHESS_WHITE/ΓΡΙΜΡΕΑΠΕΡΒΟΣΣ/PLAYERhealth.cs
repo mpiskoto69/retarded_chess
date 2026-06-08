@@ -69,4 +69,21 @@ public class PlayerHealth : MonoBehaviour
         if (gameOver != null)
             gameOver.ShowLoser();
     }
+  public void Heal(float amount)
+{
+    if (isDead) return;
+
+    currentHealth += amount;
+    currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
+    if (GameManager.Instance != null)
+    {
+        if (isWitch)
+            GameManager.Instance.SaveWitchHealth(currentHealth);
+        else
+            GameManager.Instance.SaveNunHealth(currentHealth);
+    }
+
+    Debug.Log(gameObject.name + " healed. HP: " + currentHealth);
+}
 }

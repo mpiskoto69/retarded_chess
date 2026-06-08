@@ -26,12 +26,18 @@ public class BossKnightManager : MonoBehaviour
         Instance = this;
     }
 
-    public void BossKilled(BossAI boss, GameObject killerPlayer)
+    public void BossKilled(MonoBehaviour boss, GameObject killerPlayer)
     {
         if (relicSpawned) return;
 
         relicSpawned = true;
         allowedPlayer = killerPlayer;
+
+        if (allowedPlayer == null)
+        {
+            Debug.LogError("Killer player is null!");
+            return;
+        }
 
         if (relicPrefab == null)
         {

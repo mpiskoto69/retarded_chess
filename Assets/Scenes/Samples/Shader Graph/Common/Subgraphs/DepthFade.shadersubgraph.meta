@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c76da6dceef150547b7030daa98eeda6
+guid: 0f696a1f24c345741bf826cefc18873f
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -13,5 +13,5 @@ AssetOrigin:
   productId: 298128
   packageName: Fantasy Kingdom in Unity 6 | URP
   packageVersion: 1.0
-  assetPath: Assets/Samples/Shader Graph/Common/Subgraphs/UVFlowMap.shadersubgraph
+  assetPath: Assets/Samples/Shader Graph/Common/Subgraphs/DepthFade.shadersubgraph
   uploadId: 703470

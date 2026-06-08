@@ -3,7 +3,7 @@ using TMPro;
 
 public class BossUI : MonoBehaviour
 {
-    public BossAI boss;
+    public MonoBehaviour boss;
     public TMP_Text bossText;
     public string bossName = "Boss";
 
@@ -12,11 +12,30 @@ public class BossUI : MonoBehaviour
         if (boss == null || bossText == null)
             return;
 
-        int remaining = boss.MaxHits - boss.CurrentHits;
+        int maxHits = 0;
+        int currentHits = 0;
+
+        if (boss is BossAI normalBoss)
+        {
+            maxHits = normalBoss.MaxHits;
+            currentHits = normalBoss.CurrentHits;
+        }
+        else if (boss is KnightBossAI knightBoss)
+        {
+            maxHits = knightBoss.MaxHits;
+            currentHits = knightBoss.CurrentHits;
+        }
+        else
+        {
+            bossText.text = bossName;
+            return;
+        }
+
+        int remaining = maxHits - currentHits;
 
         string circles = "";
 
-        for (int i = 0; i < boss.MaxHits; i++)
+        for (int i = 0; i < maxHits; i++)
         {
             if (i < remaining)
                 circles += "●";

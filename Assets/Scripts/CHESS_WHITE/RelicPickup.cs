@@ -3,6 +3,7 @@ using UnityEngine;
 public class RelicPickup : MonoBehaviour
 {
     private GameObject allowedPlayer;
+    private bool pickedUp = false;
 
     public void SetAllowedPlayer(GameObject player)
     {
@@ -11,8 +12,8 @@ public class RelicPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (allowedPlayer == null)
-            return;
+        if (pickedUp) return;
+        if (allowedPlayer == null) return;
 
         bool isAllowedPlayer =
             other.gameObject == allowedPlayer ||
@@ -21,9 +22,23 @@ public class RelicPickup : MonoBehaviour
         if (!isAllowedPlayer)
             return;
 
-        gameObject.SetActive(false);
+        pickedUp = true;
 
-        if (BossFightManager.Instance != null)
+        Debug.Log(allowedPlayer.name + " picked up relic!");
+
+        if (BossKnightManager.Instance != null)
+        {
+            BossKnightManager.Instance.RelicTaken(allowedPlayer);
+        }
+        else if (BossFightManager.Instance != null)
+        {
             BossFightManager.Instance.RelicTaken(allowedPlayer);
+        }
+        else
+        {
+            Debug.LogError("No boss manager found for relic pickup!");
+        }
+
+        Destroy(gameObject);
     }
 }
