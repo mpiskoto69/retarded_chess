@@ -36,18 +36,35 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-        if (GameManager.Instance != null)
-        {
-            if (isWitch)
-                GameManager.Instance.SaveWitchHealth(currentHealth);
-            else
-                GameManager.Instance.SaveNunHealth(currentHealth);
-        }
+        SaveHealth();
 
         Debug.Log(gameObject.name + " HP: " + currentHealth);
 
         if (currentHealth <= 0f)
             Die();
+    }
+
+    public void Heal(float amount)
+    {
+        if (isDead) return;
+
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
+        SaveHealth();
+
+        Debug.Log(gameObject.name + " healed. HP: " + currentHealth);
+    }
+
+    void SaveHealth()
+    {
+        if (GameManager.Instance == null)
+            return;
+
+        if (isWitch)
+            GameManager.Instance.SaveWitchHealth(currentHealth);
+        else
+            GameManager.Instance.SaveNunHealth(currentHealth);
     }
 
     void Die()
@@ -65,25 +82,8 @@ public class PlayerHealth : MonoBehaviour
         if (attack != null)
             attack.enabled = false;
 
-        GameOverUI gameOver = FindFirstObjectByType<GameOverUI>();
-        if (gameOver != null)
-            gameOver.ShowLoser();
+        EndGameUI endUI = FindFirstObjectByType<EndGameUI>();
+        if (endUI != null)
+            endUI.ShowGameOver();
     }
-  public void Heal(float amount)
-{
-    if (isDead) return;
-
-    currentHealth += amount;
-    currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
-
-    if (GameManager.Instance != null)
-    {
-        if (isWitch)
-            GameManager.Instance.SaveWitchHealth(currentHealth);
-        else
-            GameManager.Instance.SaveNunHealth(currentHealth);
-    }
-
-    Debug.Log(gameObject.name + " healed. HP: " + currentHealth);
-}
 }

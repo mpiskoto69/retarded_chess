@@ -93,6 +93,17 @@ public class BossFightManager : MonoBehaviour
         {
             GameManager.Instance.AddRelicToPlayer(player);
             GameManager.Instance.MarkBossDefeated(GameManager.Instance.currentBoss);
+
+            if (GameManager.Instance.IsGameFinished())
+            {
+                EndGameUI endUI = FindFirstObjectByType<EndGameUI>();
+
+                if (endUI != null)
+                {
+                    endUI.ShowYouWon();
+                    return;
+                }
+            }
         }
 
         SceneManager.LoadScene(boardSceneName);

@@ -17,12 +17,10 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -25f;
     public float jumpHeight = 1.2f;
 
-    [Header("Board Limits")]
+    [Header("Board Limits From Plane")]
     public bool useBoardLimits = true;
-    public float minX = 14212.71f;
-    public float maxX = 15179.92f;
-    public float minZ = 7216.017f;
-    public float maxZ = 8179.771f;
+    public Collider boardCollider;
+    public float edgePadding = 0.5f;
 
     [Header("Model Fix")]
     public float modelYawOffset = 0f;
@@ -101,10 +99,23 @@ public class PlayerMovement : MonoBehaviour
 
     void ClampToBoard()
     {
+        if (boardCollider == null)
+            return;
+
+        Bounds bounds = boardCollider.bounds;
         Vector3 p = transform.position;
 
-        float clampedX = Mathf.Clamp(p.x, minX, maxX);
-        float clampedZ = Mathf.Clamp(p.z, minZ, maxZ);
+        float clampedX = Mathf.Clamp(
+            p.x,
+            bounds.min.x + edgePadding,
+            bounds.max.x - edgePadding
+        );
+
+        float clampedZ = Mathf.Clamp(
+            p.z,
+            bounds.min.z + edgePadding,
+            bounds.max.z - edgePadding
+        );
 
         Vector3 correction = new Vector3(
             clampedX - p.x,
@@ -165,20 +176,22 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        if (!useBoardLimits) return;
+        if (!useBoardLimits || boardCollider == null) return;
+
+        Bounds bounds = boardCollider.bounds;
 
         Gizmos.color = Color.yellow;
 
         Vector3 center = new Vector3(
-            (minX + maxX) * 0.5f,
+            bounds.center.x,
             transform.position.y + 0.05f,
-            (minZ + maxZ) * 0.5f
+            bounds.center.z
         );
 
         Vector3 size = new Vector3(
-            maxX - minX,
+            bounds.size.x - edgePadding * 2f,
             0.1f,
-            maxZ - minZ
+            bounds.size.z - edgePadding * 2f
         );
 
         Gizmos.DrawWireCube(center, size);

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [Header("Relics")]
     public int nunRelics = 0;
     public int witchRelics = 0;
-    public int relicsNeededToEndGame = 3;
+    public int relicsNeededToEndGame = 2;
 
     [Header("Health")]
     public float maxHealth = 8f;

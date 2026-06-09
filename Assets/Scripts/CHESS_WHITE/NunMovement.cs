@@ -53,8 +53,8 @@ public class NunMovement : MonoBehaviour
     {
         moveDir = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.UpArrow)) moveDir = Vector3.back;
-        if (Input.GetKey(KeyCode.DownArrow)) moveDir = Vector3.forward;
+        if (Input.GetKey(KeyCode.UpArrow)) moveDir = Vector3.forward;
+        if (Input.GetKey(KeyCode.DownArrow)) moveDir = Vector3.back;
         if (Input.GetKey(KeyCode.RightArrow)) moveDir = Vector3.left;
         if (Input.GetKey(KeyCode.LeftArrow)) moveDir = Vector3.right;
 
