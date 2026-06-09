@@ -10,6 +10,11 @@ public class PlayerBossAttack : MonoBehaviour
 
     [Header("Attack")]
     public float attackRange = 2f;
+    public float attackAngle = 60f;
+    public float attackYawOffset = 0f;
+
+    [Header("Debug")]
+    public bool drawDebug = true;
 
     private bool bossDefeated = false;
 
@@ -45,6 +50,12 @@ public class PlayerBossAttack : MonoBehaviour
             return;
         }
 
+        if (!IsBossInFront())
+        {
+            Debug.Log("BOSS NOT IN FRONT");
+            return;
+        }
+
         Debug.Log(name + " HIT " + myBoss.name);
 
         if (myBoss is BossAI normalBoss)
@@ -65,6 +76,29 @@ public class PlayerBossAttack : MonoBehaviour
         }
     }
 
+    bool IsBossInFront()
+    {
+        Vector3 toBoss = myBoss.transform.position - transform.position;
+        toBoss.y = 0f;
+
+        if (toBoss.sqrMagnitude < 0.01f)
+            return true;
+
+        toBoss.Normalize();
+
+        Vector3 attackForward =
+            Quaternion.Euler(0f, attackYawOffset, 0f) * transform.forward;
+
+        attackForward.y = 0f;
+        attackForward.Normalize();
+
+        float angle = Vector3.Angle(attackForward, toBoss);
+
+        Debug.Log("Attack angle to boss = " + angle);
+
+        return angle <= attackAngle * 0.5f;
+    }
+
     float GetFlatDistanceToBoss()
     {
         Vector2 playerPos = new Vector2(transform.position.x, transform.position.z);
@@ -76,5 +110,26 @@ public class PlayerBossAttack : MonoBehaviour
     public void MarkBossDefeated()
     {
         bossDefeated = true;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (!drawDebug) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Vector3 attackForward =
+            Quaternion.Euler(0f, attackYawOffset, 0f) * transform.forward;
+
+        Quaternion leftRot = Quaternion.Euler(0f, -attackAngle * 0.5f, 0f);
+        Quaternion rightRot = Quaternion.Euler(0f, attackAngle * 0.5f, 0f);
+
+        Vector3 leftDir = leftRot * attackForward;
+        Vector3 rightDir = rightRot * attackForward;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, transform.position + leftDir.normalized * attackRange);
+        Gizmos.DrawLine(transform.position, transform.position + rightDir.normalized * attackRange);
     }
 }
