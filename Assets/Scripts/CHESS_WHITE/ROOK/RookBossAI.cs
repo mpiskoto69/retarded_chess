@@ -5,17 +5,29 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class RookBossAI : MonoBehaviour
 {
+    public enum RookMoveMode
+    {
+        ChaseOnly,
+        ChargeWhenAligned,
+        ChargeOnCooldown
+    }
+
     public Transform targetPlayer;
 
     [Header("Health")]
-    public int hitsToDie = 10;
+    public int hitsToDie = 3;
 
     [Header("Damage")]
     public float damage = 0.5f;
     public float hitRange = 1.4f;
     public float hitCooldown = 1f;
+    public bool damageOnTouch = true;
+
+    [Header("Hit Rules")]
+    public bool canOnlyBeHitWhileStunned = true;
 
     [Header("Movement")]
+    public RookMoveMode moveMode = RookMoveMode.ChargeWhenAligned;
     public float moveSpeed = 2.5f;
     public float stoppingDistance = 2f;
     public float turnSpeed = 8f;
@@ -94,7 +106,7 @@ public class RookBossAI : MonoBehaviour
 
         FaceTarget();
 
-        if (ShouldCharge() && Time.time >= nextChargeTime)
+        if (ShouldStartCharge())
         {
             StartCoroutine(ChargeRoutine());
             nextChargeTime = Time.time + chargeCooldown;
@@ -102,8 +114,36 @@ public class RookBossAI : MonoBehaviour
         }
 
         ChasePlayer();
-        TouchDamage();
+
+        if (damageOnTouch)
+            TouchDamage();
+
         UpdateAnimator();
+    }
+
+    bool ShouldStartCharge()
+    {
+        if (Time.time < nextChargeTime)
+            return false;
+
+        if (moveMode == RookMoveMode.ChaseOnly)
+            return false;
+
+        if (moveMode == RookMoveMode.ChargeOnCooldown)
+            return true;
+
+        return IsAlignedWithPlayer();
+    }
+
+    bool IsAlignedWithPlayer()
+    {
+        Vector3 diff = targetPlayer.position - transform.position;
+        diff.y = 0f;
+
+        bool alignedX = Mathf.Abs(diff.x) <= alignDistance;
+        bool alignedZ = Mathf.Abs(diff.z) <= alignDistance;
+
+        return alignedX || alignedZ;
     }
 
     void ChasePlayer()
@@ -114,17 +154,6 @@ public class RookBossAI : MonoBehaviour
         agent.stoppingDistance = stoppingDistance;
         agent.isStopped = false;
         agent.SetDestination(targetPlayer.position);
-    }
-
-    bool ShouldCharge()
-    {
-        Vector3 diff = targetPlayer.position - transform.position;
-        diff.y = 0f;
-
-        bool alignedX = Mathf.Abs(diff.x) <= alignDistance;
-        bool alignedZ = Mathf.Abs(diff.z) <= alignDistance;
-
-        return alignedX || alignedZ;
     }
 
     IEnumerator ChargeRoutine()
@@ -147,11 +176,9 @@ public class RookBossAI : MonoBehaviour
         if (chargeDir.sqrMagnitude < 0.01f)
             chargeDir = transform.forward;
 
-        Quaternion targetRotation =
+        transform.rotation =
             Quaternion.LookRotation(chargeDir) *
             Quaternion.Euler(0f, modelYawOffset, 0f);
-
-        transform.rotation = targetRotation;
 
         if (audioSource != null && chargeSound != null)
             audioSource.PlayOneShot(chargeSound);
@@ -165,8 +192,8 @@ public class RookBossAI : MonoBehaviour
             transform.position += chargeDir * step;
             traveled += step;
 
-            if (Vector3.Distance(transform.position, targetPlayer.position) <= hitRange)
-                DamagePlayer();
+            if (damageOnTouch)
+                TouchDamage();
 
             yield return null;
         }
@@ -206,7 +233,14 @@ public class RookBossAI : MonoBehaviour
 
     void TouchDamage()
     {
-        if (Vector3.Distance(transform.position, targetPlayer.position) > hitRange)
+        if (targetPlayer == null) return;
+
+        float distance = Vector2.Distance(
+            new Vector2(transform.position.x, transform.position.z),
+            new Vector2(targetPlayer.position.x, targetPlayer.position.z)
+        );
+
+        if (distance > hitRange)
             return;
 
         DamagePlayer();
@@ -220,15 +254,28 @@ public class RookBossAI : MonoBehaviour
 
         PlayerHealth hp = targetPlayer.GetComponent<PlayerHealth>();
 
+        if (hp == null)
+            hp = targetPlayer.GetComponentInParent<PlayerHealth>();
+
+        if (hp == null)
+            hp = targetPlayer.GetComponentInChildren<PlayerHealth>();
+
         if (hp != null)
+        {
+            Debug.Log(name + " damages " + hp.name);
             hp.TakeDamage(damage);
+        }
+        else
+        {
+            Debug.LogError("Target player has no PlayerHealth: " + targetPlayer.name);
+        }
     }
 
     public void TakeHit(GameObject attacker)
     {
         if (isDead) return;
 
-        if (!isStunned)
+        if (canOnlyBeHitWhileStunned && !isStunned)
         {
             Debug.Log(name + " can only be hit while stunned!");
             return;

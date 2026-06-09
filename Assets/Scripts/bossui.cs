@@ -25,6 +25,11 @@ public class BossUI : MonoBehaviour
             maxHits = knightBoss.MaxHits;
             currentHits = knightBoss.CurrentHits;
         }
+        else if (boss is RookBossAI rookBoss)
+        {
+            maxHits = rookBoss.MaxHits;
+            currentHits = rookBoss.CurrentHits;
+        }
         else
         {
             bossText.text = bossName;
