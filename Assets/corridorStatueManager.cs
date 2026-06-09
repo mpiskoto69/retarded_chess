@@ -6,21 +6,26 @@ public class CorridorStatueSpawner : MonoBehaviour
     [Header("Statue")]
     public GameObject statuePrefab;
 
-    [Header("Corridor Area")]
-    public Collider corridorArea;
+    [Header("Manual Spawn Limits")]
+    public float minX = -5f;
+    public float maxX = 5f;
+    public float minZ = -20f;
+    public float maxZ = 20f;
+    public float spawnY = 0f;
 
     [Header("Spawn")]
     public int statueCount = 6;
-    public float spawnHeightOffset = 0.05f;
     public Vector3 spawnOffset = Vector3.zero;
     public Vector3 spawnRotation = Vector3.zero;
     public Vector3 spawnScale = Vector3.one;
 
-    [Header("Placement")]
-    public float edgePadding = 2f;
-    public float sidePadding = 1.5f;
+    [Header("Spacing")]
     public float minDistanceBetweenStatues = 3f;
-    public int maxAttemptsPerStatue = 40;
+    public int maxAttemptsPerStatue = 60;
+
+    [Header("Navigation")]
+    public bool snapToNavMesh = true;
+    public float navMeshSearchRadius = 3f;
 
     private Vector3[] spawnedPositions;
 
@@ -37,15 +42,7 @@ public class CorridorStatueSpawner : MonoBehaviour
             return;
         }
 
-        if (corridorArea == null)
-        {
-            Debug.LogError("Corridor Area is not assigned!");
-            return;
-        }
-
         spawnedPositions = new Vector3[statueCount];
-
-        Bounds bounds = corridorArea.bounds;
         int spawnedCount = 0;
 
         for (int i = 0; i < statueCount; i++)
@@ -54,9 +51,23 @@ public class CorridorStatueSpawner : MonoBehaviour
 
             for (int attempt = 0; attempt < maxAttemptsPerStatue; attempt++)
             {
-                Vector3 randomPosition = GetRandomPointInCorridor(bounds) + spawnOffset;
+                Vector3 randomPosition = new Vector3(
+                    Random.Range(minX, maxX),
+                    spawnY,
+                    Random.Range(minZ, maxZ)
+                ) + spawnOffset;
 
-                if (!IsFarEnough(randomPosition, spawnedCount))
+                if (snapToNavMesh)
+                {
+                    NavMeshHit hit;
+
+                    if (!NavMesh.SamplePosition(randomPosition, out hit, navMeshSearchRadius, NavMesh.AllAreas))
+                        continue;
+
+                    randomPosition = hit.position + spawnOffset;
+                }
+
+                if (!IsFarEnough(randomPosition, spawnedPositions, spawnedCount))
                     continue;
 
                 GameObject statue = Instantiate(
@@ -78,26 +89,22 @@ public class CorridorStatueSpawner : MonoBehaviour
             }
 
             if (!spawned)
-                Debug.LogWarning("Could not spawn statue " + i);
+                Debug.LogWarning("Could not spawn statue " + i + ". Try bigger limits or smaller min distance.");
         }
 
-        Debug.Log("Spawned " + spawnedCount + " statues in corridor.");
+        Debug.Log("Spawned " + spawnedCount + " statues.");
     }
 
-    Vector3 GetRandomPointInCorridor(Bounds bounds)
-    {
-        float x = Random.Range(bounds.min.x + sidePadding, bounds.max.x - sidePadding);
-        float z = Random.Range(bounds.min.z + edgePadding, bounds.max.z - edgePadding);
-        float y = bounds.max.y + spawnHeightOffset;
-
-        return new Vector3(x, y, z);
-    }
-
-    bool IsFarEnough(Vector3 position, int count)
+    bool IsFarEnough(Vector3 position, Vector3[] existingPositions, int count)
     {
         for (int i = 0; i < count; i++)
         {
-            if (Vector3.Distance(position, spawnedPositions[i]) < minDistanceBetweenStatues)
+            float distance = Vector2.Distance(
+                new Vector2(position.x, position.z),
+                new Vector2(existingPositions[i].x, existingPositions[i].z)
+            );
+
+            if (distance < minDistanceBetweenStatues)
                 return false;
         }
 
@@ -125,5 +132,24 @@ public class CorridorStatueSpawner : MonoBehaviour
 
         obstacle.carving = true;
         obstacle.carveOnlyStationary = true;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+
+        Vector3 center = new Vector3(
+            (minX + maxX) * 0.5f,
+            spawnY,
+            (minZ + maxZ) * 0.5f
+        );
+
+        Vector3 size = new Vector3(
+            maxX - minX,
+            0.1f,
+            maxZ - minZ
+        );
+
+        Gizmos.DrawWireCube(center, size);
     }
 }
