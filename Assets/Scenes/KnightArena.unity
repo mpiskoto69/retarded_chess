@@ -666,6 +666,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1639042439}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
       objectReference: {fileID: 0}
@@ -781,6 +785,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -190
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -536
+      objectReference: {fileID: 0}
     - target: {fileID: 9129464944695990331, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_Name
       value: bojackhealth
@@ -843,10 +875,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KnightBossAI
   targetPlayer: {fileID: 778203129}
-  hitsToDie: 12
+  hitsToDie: 10
   damage: 0.5
   attackRange: 1.5
-  attackCooldown: 4
+  attackCooldown: 1
   moveSpeed: 4
   stoppingDistance: 1
   turnSpeed: 8
@@ -854,8 +886,8 @@ MonoBehaviour:
   dodgeChance: 0.5
   dodgeCooldown: 0.5
   dodgeDistance: 2
-  disappearDelay: 1.5
-  animator: {fileID: 714670626}
+  disappearDelay: 3.24
+  animator: {fileID: 1319668711}
   audioSource: {fileID: 0}
   horseAttackSound: {fileID: 0}
   horseDeathSound: {fileID: 0}
@@ -872,8 +904,8 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 720
-  m_StoppingDistance: 1
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -2076,6 +2108,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 98a11a0bbbe4e7543bf9595d87d90f9c, type: 3}
   m_PrefabInstance: {fileID: 1319668709}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1319668711 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 98a11a0bbbe4e7543bf9595d87d90f9c, type: 3}
+  m_PrefabInstance: {fileID: 1319668709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1549391919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2196,7 +2233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KnightBossAI
   targetPlayer: {fileID: 480572261}
-  hitsToDie: 12
+  hitsToDie: 10
   damage: 0.5
   attackRange: 1.5
   attackCooldown: 1
@@ -2207,7 +2244,7 @@ MonoBehaviour:
   dodgeChance: 0.5
   dodgeCooldown: 0.5
   dodgeDistance: 2
-  disappearDelay: 1.5
+  disappearDelay: 3
   animator: {fileID: 714670626}
   audioSource: {fileID: 0}
   horseAttackSound: {fileID: 0}

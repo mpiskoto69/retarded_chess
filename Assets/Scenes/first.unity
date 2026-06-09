@@ -2103,7 +2103,7 @@ Transform:
   m_GameObject: {fileID: 246034500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 489.81, y: 112, z: 757.55}
+  m_LocalPosition: {x: 553.3, y: 112, z: 620}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2123,17 +2123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d5b1a0b448a944290224d1d6af008f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NunMovement
-  moveSpeed: 10
-  turnSpeed: 8
-  jumpHeight: 1.2
-  gravity: -25
-  useBoardLimits: 1
-  minX: 421
-  maxX: 581
-  minZ: 549
-  maxZ: 709
-  modelYawOffset: 0
-  animator: {fileID: 0}
 --- !u!143 &246034507
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2200,8 +2189,8 @@ MonoBehaviour:
   useBoardLimits: 1
   minX: 421
   maxX: 581
-  minZ: 549
-  maxZ: 709
+  minZ: 620
+  maxZ: 757.55
   modelYawOffset: 0
   animator: {fileID: 766024207}
 --- !u!114 &246034510
@@ -2223,8 +2212,8 @@ MonoBehaviour:
   useBoardLimits: 1
   minX: 421
   maxX: 581
-  minZ: 549
-  maxZ: 709
+  minZ: 620
+  maxZ: 757.55
   modelYawOffset: 0
   animator: {fileID: 766024207}
 --- !u!1001 &251929740
@@ -6621,7 +6610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -56.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6629,7 +6618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 134.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8034,17 +8023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724b6207d4845ea4a9940923cb2f896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WitchMovement
-  moveSpeed: 10
-  turnSpeed: 8
-  jumpHeight: 1.2
-  gravity: -25
-  useBoardLimits: 1
-  minX: 421
-  maxX: 581
-  minZ: 549
-  maxZ: 709
-  modelYawOffset: 0
-  animator: {fileID: 0}
 --- !u!143 &844564937
 CharacterController:
   m_ObjectHideFlags: 0

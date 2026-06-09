@@ -763,6 +763,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 95932961404499152, guid: cc4a6c3b7f9309e4b9f6ce424893508b, type: 3}
+      propertyPath: maxX
+      value: 15130.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 95932961404499152, guid: cc4a6c3b7f9309e4b9f6ce424893508b, type: 3}
+      propertyPath: maxZ
+      value: 7968.315
+      objectReference: {fileID: 0}
+    - target: {fileID: 95932961404499152, guid: cc4a6c3b7f9309e4b9f6ce424893508b, type: 3}
+      propertyPath: minX
+      value: 14367.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 95932961404499152, guid: cc4a6c3b7f9309e4b9f6ce424893508b, type: 3}
+      propertyPath: minZ
+      value: 7272.933
+      objectReference: {fileID: 0}
     - target: {fileID: 6744774224619366491, guid: cc4a6c3b7f9309e4b9f6ce424893508b, type: 3}
       propertyPath: m_Name
       value: player2 (1)
@@ -1042,7 +1058,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 720
-  m_StoppingDistance: 2
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1126,7 +1142,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 720
-  m_StoppingDistance: 2
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1737,39 +1753,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 770
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 210
+      value: -230
       objectReference: {fileID: 0}
     - target: {fileID: 1227605462471125141, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -200
+      value: -536
       objectReference: {fileID: 0}
     - target: {fileID: 1393603185665500351, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_Pivot.x
@@ -1924,6 +1944,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 230
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163141022021585417, guid: b38736aad7593a644a29a2401da17755, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
       objectReference: {fileID: 0}
@@ -1956,6 +1980,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6090640873136595265, guid: f004c3526fe97ef4a94b314a0719914c, type: 3}
+      propertyPath: maxX
+      value: 15130.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090640873136595265, guid: f004c3526fe97ef4a94b314a0719914c, type: 3}
+      propertyPath: maxZ
+      value: 7968.315
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090640873136595265, guid: f004c3526fe97ef4a94b314a0719914c, type: 3}
+      propertyPath: minX
+      value: 14367.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090640873136595265, guid: f004c3526fe97ef4a94b314a0719914c, type: 3}
+      propertyPath: minZ
+      value: 7514.373
+      objectReference: {fileID: 0}
     - target: {fileID: 6424892520709405309, guid: f004c3526fe97ef4a94b314a0719914c, type: 3}
       propertyPath: m_Name
       value: player
