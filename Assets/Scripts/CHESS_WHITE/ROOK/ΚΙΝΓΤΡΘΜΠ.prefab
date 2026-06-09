@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8098169881513260187, guid: 7a6adc0bebf84cc4599afbfeea4ec52c, type: 3}
       propertyPath: m_Name
-      value: Meshy_AI_Trump_Ancient_King_St_0608184807_image-to-3d-texture 1
+      value: "\u039A\u0399\u039D\u0393\u03A4\u03A1\u0398\u039C\u03A0"
       objectReference: {fileID: 0}
     - target: {fileID: 3447742079981357586, guid: 7a6adc0bebf84cc4599afbfeea4ec52c, type: 3}
       propertyPath: m_LocalScale.x
@@ -74,9 +74,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8098169881513260187, guid: 7a6adc0bebf84cc4599afbfeea4ec52c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4966070038090351018}
-    - targetCorrespondingSourceObject: {fileID: -8098169881513260187, guid: 7a6adc0bebf84cc4599afbfeea4ec52c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2605712620024185001}
   m_SourcePrefab: {fileID: 3150474306388093854, guid: 7a6adc0bebf84cc4599afbfeea4ec52c, type: 3}
 --- !u!1 &7823329088287823042 stripped
 GameObject:
@@ -120,30 +117,3 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.002, y: -0.001, z: -0.001}
   m_TimeToStationary: 0.5
---- !u!54 &2605712620024185001
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7823329088287823042}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
