@@ -55,9 +55,13 @@ public class PlayerBossAttack : MonoBehaviour
         {
             knightBoss.TakeHit(gameObject);
         }
+        else if (myBoss is RookBossAI rookBoss)
+        {
+            rookBoss.TakeHit(gameObject);
+        }
         else
         {
-            Debug.LogError(myBoss.name + " is not BossAI or KnightBossAI!");
+            Debug.LogError(myBoss.name + " is not BossAI, KnightBossAI, or RookBossAI!");
         }
     }
 

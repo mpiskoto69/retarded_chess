@@ -26,7 +26,11 @@ public class RelicPickup : MonoBehaviour
 
         Debug.Log(allowedPlayer.name + " picked up relic!");
 
-        if (BossKnightManager.Instance != null)
+        if (BossRookManager.Instance != null)
+        {
+            BossRookManager.Instance.RelicTaken(allowedPlayer);
+        }
+        else if (BossKnightManager.Instance != null)
         {
             BossKnightManager.Instance.RelicTaken(allowedPlayer);
         }
