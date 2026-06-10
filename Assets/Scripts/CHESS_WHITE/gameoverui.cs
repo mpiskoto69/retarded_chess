@@ -11,6 +11,7 @@ public class EndGameUI : MonoBehaviour
 
     [Header("Game Over UI")]
     public TMP_Text gameOverText;
+    public Image gameOverImage;
 
     [Header("You Won UI")]
     public TMP_Text winnerText;
@@ -45,7 +46,7 @@ public class EndGameUI : MonoBehaviour
         Time.timeScale = 0f;
 
         if (gameOverText != null)
-            gameOverText.text = "LOSER :)";
+            gameOverText.text = "XAXAXAXA EXAΣΕΣ LOSER :)";
 
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
