@@ -1864,6 +1864,57 @@ MonoBehaviour:
   spawnHeightOffset: 0.1
   spawnRotation: {x: 0, y: 0, z: 0}
   navMeshSearchRadius: 10
+--- !u!1 &2127560482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2127560484}
+  - component: {fileID: 2127560483}
+  m_Layer: 0
+  m_Name: BossRookManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2127560483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127560482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7fa613706bd5a4bb390ac9940e2191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossRookManager
+  relicPrefab: {fileID: 1969825389166084741, guid: 4f73d43bfe914fe4bbdf18592c011e09, type: 3}
+  nunCorridorArea: {fileID: 1627309446}
+  witchCorridorArea: {fileID: 685418141}
+  relicHeightOffset: 0.2
+  relicRotation: {x: -90, y: 0, z: 0}
+  relicScale: {x: 1, y: 1, z: 1}
+  boardSceneName: first
+--- !u!4 &2127560484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127560482}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 408.59, y: 15.9, z: -188.41653}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &152059508986358523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2349,11 +2400,12 @@ SceneRoots:
   m_Roots:
   - {fileID: 1932441873}
   - {fileID: 777642496330188596}
+  - {fileID: 2127560484}
   - {fileID: 685418138}
   - {fileID: 2032926870}
+  - {fileID: 5914688914413741722}
   - {fileID: 1923389389}
   - {fileID: 4736233825820504869}
-  - {fileID: 5914688914413741722}
   - {fileID: 1627309435}
   - {fileID: 386821990}
   - {fileID: 466853782}
