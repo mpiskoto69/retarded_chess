@@ -167,6 +167,14 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 468989930}
+    - target: {fileID: 2073288989904812193, guid: d72a5c4fc53c80b4f91c20c8a0444ba1, type: 3}
+      propertyPath: offset.z
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2073288989904812193, guid: d72a5c4fc53c80b4f91c20c8a0444ba1, type: 3}
+      propertyPath: lookHeight
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4339776812493615903, guid: d72a5c4fc53c80b4f91c20c8a0444ba1, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -2045,6 +2053,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: TERAS
       objectReference: {fileID: 0}
+    - target: {fileID: 4085135309963605520, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
+      propertyPath: m_Radius
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085135309963605520, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144637170834848996, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144637170834848996, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144637170834848996, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5341968500691843419, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
       propertyPath: m_LocalPosition.x
       value: 678.5
@@ -2086,13 +2114,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7738983764261880429, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
+      propertyPath: stunTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738983764261880429, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
       propertyPath: hitsToDie
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738983764261880429, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
+      propertyPath: hitCooldown
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7738983764261880429, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
       propertyPath: targetPlayer
       value: 
       objectReference: {fileID: 468989930}
+    - target: {fileID: 7738983764261880429, guid: bc1a6294b91cb2746bb007ea36ae0771, type: 3}
+      propertyPath: stoppingDistance
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2117,6 +2157,18 @@ PrefabInstance:
     - target: {fileID: 1817736324548563374, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
       propertyPath: m_Name
       value: manolis
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806757607627622523, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806757607627622523, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806757607627622523, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7097130775400015079, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2159,13 +2211,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7543350521858006651, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
+      propertyPath: stunTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7543350521858006651, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
       propertyPath: hitsToDie
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7543350521858006651, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
+      propertyPath: hitCooldown
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7543350521858006651, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
       propertyPath: targetPlayer
       value: 
       objectReference: {fileID: 1923389390}
+    - target: {fileID: 7543350521858006651, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
+      propertyPath: stoppingDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213094818188889326, guid: 796ed21fdb678c4429f5d572335c68ad, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2186,6 +2254,10 @@ PrefabInstance:
     - target: {fileID: 674481035065782276, guid: 61ce23267883ae14e812a44bb415c9fe, type: 3}
       propertyPath: m_Name
       value: CorridorStatueManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8230598162675461752, guid: 61ce23267883ae14e812a44bb415c9fe, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9055056624064600479, guid: 61ce23267883ae14e812a44bb415c9fe, type: 3}
       propertyPath: m_LocalPosition.x

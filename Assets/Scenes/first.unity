@@ -2082,7 +2082,6 @@ GameObject:
   - component: {fileID: 246034505}
   - component: {fileID: 246034507}
   - component: {fileID: 246034508}
-  - component: {fileID: 246034509}
   - component: {fileID: 246034510}
   m_Layer: 0
   m_Name: player
@@ -2100,7 +2099,7 @@ Transform:
   m_GameObject: {fileID: 246034500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 532.5, y: 109.8, z: 766.2}
+  m_LocalPosition: {x: 532.5, y: 109.4, z: 766.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2120,6 +2119,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d5b1a0b448a944290224d1d6af008f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NunMovement
+  moveSpeed: 10
+  turnSpeed: 8
+  jumpHeight: 1.2
+  gravity: -25
+  invertForward: 0
+  invertSide: 0
+  useBoardLimits: 1
+  minX: 421
+  maxX: 581
+  minZ: 549
+  maxZ: 709
+  clampOnStart: 1
+  startY: 1
+  forceStartY: 0
+  modelYawOffset: 0
+  animator: {fileID: 0}
 --- !u!143 &246034507
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2161,33 +2176,6 @@ MonoBehaviour:
   maxHealth: 8
   currentHealth: 8
   isDead: 0
---- !u!114 &246034509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246034500}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7e05a431d91f584d863f25595fd6dc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  forwardKey: 273
-  backwardKey: 274
-  leftKey: 276
-  rightKey: 275
-  jumpKey: 32
-  attackKey: 13
-  moveSpeed: 20
-  turnSpeed: 10
-  gravity: -25
-  jumpHeight: 1.2
-  useBoardLimits: 1
-  boardCollider: {fileID: 2005814367}
-  edgePadding: 0.5
-  modelYawOffset: 0
-  animator: {fileID: 766024207}
 --- !u!114 &246034510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2204,11 +2192,16 @@ MonoBehaviour:
   turnSpeed: 2
   jumpHeight: 1.2
   gravity: -25
+  invertForward: 1
+  invertSide: 1
   useBoardLimits: 1
   minX: 437.9
   maxX: 567.6
   minZ: 626.8
   maxZ: 764.9
+  clampOnStart: 1
+  startY: 109.4
+  forceStartY: 1
   modelYawOffset: 0
   animator: {fileID: 766024207}
 --- !u!1001 &251929740
@@ -6601,7 +6594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6609,7 +6602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalRotation.z
@@ -6621,7 +6614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e67656a271fa7ce4a913bf585d6131a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -8002,6 +7995,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724b6207d4845ea4a9940923cb2f896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WitchMovement
+  moveSpeed: 10
+  turnSpeed: 8
+  jumpHeight: 1.2
+  gravity: -25
+  useBoardLimits: 1
+  minX: 421
+  maxX: 581
+  minZ: 549
+  maxZ: 709
+  modelYawOffset: 0
+  animator: {fileID: 0}
 --- !u!143 &844564937
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9799,7 +9803,7 @@ MonoBehaviour:
   currentBoss: 0
   nunRelics: 0
   witchRelics: 0
-  relicsNeededToEndGame: 4
+  relicsNeededToEndGame: 2
   maxHealth: 8
   nunHealth: 8
   witchHealth: 8
