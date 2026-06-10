@@ -2100,7 +2100,7 @@ Transform:
   m_GameObject: {fileID: 246034500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 522.17, y: 110.1, z: 761.3}
+  m_LocalPosition: {x: 532.5, y: 109.8, z: 766.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2179,7 +2179,7 @@ MonoBehaviour:
   rightKey: 275
   jumpKey: 32
   attackKey: 13
-  moveSpeed: 10
+  moveSpeed: 20
   turnSpeed: 10
   gravity: -25
   jumpHeight: 1.2
@@ -2205,10 +2205,10 @@ MonoBehaviour:
   jumpHeight: 1.2
   gravity: -25
   useBoardLimits: 1
-  minX: 421
-  maxX: 581
-  minZ: 620
-  maxZ: 757.55
+  minX: 437.9
+  maxX: 567.6
+  minZ: 626.8
+  maxZ: 764.9
   modelYawOffset: 0
   animator: {fileID: 766024207}
 --- !u!1001 &251929740
@@ -7983,7 +7983,7 @@ Transform:
   m_GameObject: {fileID: 844564934}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1060.2, y: 98.2, z: 479.5}
+  m_LocalPosition: {x: 1014.8, y: 98.2, z: 475.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8087,10 +8087,10 @@ MonoBehaviour:
   jumpHeight: 1.2
   gravity: -25
   useBoardLimits: 1
-  minX: 957.6
-  maxX: 1090.9
-  minZ: 549
-  maxZ: 620.1
+  minX: 958.8
+  maxX: 1092.5
+  minZ: 479.5
+  maxZ: 614.8
   modelYawOffset: 0
   animator: {fileID: 856498079}
 --- !u!1001 &856498076
@@ -8127,7 +8127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7298781718267859914, guid: 7a5b5d8237999e647b8c45280a65376d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: 7298781718267859914, guid: 7a5b5d8237999e647b8c45280a65376d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8835,7 +8835,6 @@ MonoBehaviour:
   - {fileID: 1079008057}
   - {fileID: 1113391675}
   - {fileID: 367240032}
-  - {fileID: 499962834}
   - {fileID: 982260540}
   - {fileID: 1047644152}
   - {fileID: 301469859}
@@ -17262,7 +17261,6 @@ MonoBehaviour:
   - {fileID: 1987618333}
   - {fileID: 204569631}
   - {fileID: 1907273349}
-  - {fileID: 489953631}
   - {fileID: 1532193272}
   - {fileID: 1861045797}
   - {fileID: 492963197}
@@ -18056,6 +18054,10 @@ PrefabInstance:
     - target: {fileID: 7309577916414724581, guid: 6e2e245033f93c543921cd5594eb8bea, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309577916414724581, guid: 6e2e245033f93c543921cd5594eb8bea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8109990748305339489, guid: 6e2e245033f93c543921cd5594eb8bea, type: 3}
       propertyPath: nunHealth
