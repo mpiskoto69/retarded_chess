@@ -9,7 +9,6 @@ public class NunMovement : MonoBehaviour
     public float jumpHeight = 1.2f;
     public float gravity = -25f;
 
-    [Header("Model Facing Fix")]
     [Header("Board Limits")]
     public bool useBoardLimits = true;
     public float minX = 421f;
@@ -17,6 +16,7 @@ public class NunMovement : MonoBehaviour
     public float minZ = 549f;
     public float maxZ = 709f;
 
+    [Header("Model Facing Fix")]
     public float modelYawOffset = 0f;
 
     [Header("Animator")]
@@ -53,10 +53,10 @@ public class NunMovement : MonoBehaviour
     {
         moveDir = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.UpArrow)) moveDir = Vector3.forward;
-        if (Input.GetKey(KeyCode.DownArrow)) moveDir = Vector3.back;
-        if (Input.GetKey(KeyCode.RightArrow)) moveDir = Vector3.left;
-        if (Input.GetKey(KeyCode.LeftArrow)) moveDir = Vector3.right;
+        if (Input.GetKey(KeyCode.UpArrow)) moveDir += Vector3.forward;
+        if (Input.GetKey(KeyCode.DownArrow)) moveDir += Vector3.back;
+        if (Input.GetKey(KeyCode.RightArrow)) moveDir += Vector3.right;
+        if (Input.GetKey(KeyCode.LeftArrow)) moveDir += Vector3.left;
 
         if (moveDir.sqrMagnitude > 0.01f)
         {
@@ -145,6 +145,8 @@ public class NunMovement : MonoBehaviour
 
     bool HasParameter(string parameterName)
     {
+        if (animator == null) return false;
+
         foreach (AnimatorControllerParameter p in animator.parameters)
         {
             if (p.name == parameterName)
