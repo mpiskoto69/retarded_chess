@@ -1,40 +1,35 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class HealthUI : MonoBehaviour
 {
-    public bool isWitchHealthBar;
-    public Image healthFill;
+    public PlayerHealth nunHealth;
+    public PlayerHealth witchHealth;
 
-    private PlayerHealth playerHealth;
-
-    void Start()
-    {
-        FindPlayerHealth();
-    }
+    public TMP_Text nunText;
+    public TMP_Text witchText;
 
     void Update()
     {
-        if (playerHealth == null)
-            FindPlayerHealth();
+        if (nunHealth != null && nunText != null)
+            nunText.text = "Nun " + Hearts(nunHealth.currentHealth);
 
-        if (playerHealth == null || healthFill == null)
-            return;
-
-        healthFill.fillAmount = playerHealth.currentHealth / playerHealth.maxHealth;
+        if (witchHealth != null && witchText != null)
+            witchText.text = "Witch " + Hearts(witchHealth.currentHealth);
     }
 
-    void FindPlayerHealth()
+    string Hearts(float hp)
     {
-        PlayerHealth[] players = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
+        string result = "";
 
-        foreach (PlayerHealth hp in players)
-        {
-            if (hp.isWitch == isWitchHealthBar)
-            {
-                playerHealth = hp;
-                return;
-            }
-        }
+        int fullHearts = Mathf.FloorToInt(hp);
+
+        for (int i = 0; i < fullHearts; i++)
+            result += "■";
+
+        if (hp % 1f >= 0.5f)
+            result += "□";
+
+        return result;
     }
 }
