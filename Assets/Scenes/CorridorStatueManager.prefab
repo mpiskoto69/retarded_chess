@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &674481035065782276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9055056624064600479}
+  - component: {fileID: 8230598162675461752}
+  - component: {fileID: 8284188586254926208}
+  - component: {fileID: 410998839598589092}
+  m_Layer: 0
+  m_Name: CorridorStatueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9055056624064600479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674481035065782276}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 408.59, y: 15.9, z: -188.41653}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8230598162675461752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674481035065782276}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d685b361498df540aa560da9aece05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CorridorStatueSpawner
+  statuePrefab: {fileID: 7823329088287823042, guid: cfa42af1cebdbe7408bf8d9c71415985, type: 3}
+  minX: 410
+  maxX: 431.61
+  minZ: -274.86
+  maxZ: -128.7
+  spawnY: 0
+  statueCount: 3
+  spawnOffset: {x: 0, y: 4.2, z: 0}
+  spawnRotation: {x: 0, y: 180, z: 0}
+  spawnScale: {x: 10, y: 10, z: 10}
+  minDistanceBetweenStatues: 3
+  maxAttemptsPerStatue: 40
+  snapToNavMesh: 1
+  navMeshSearchRadius: 4
+--- !u!114 &8284188586254926208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674481035065782276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d685b361498df540aa560da9aece05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CorridorStatueSpawner
+  statuePrefab: {fileID: 1754709114760905623, guid: 9bd5561a9aaaf024abbebccd75a01a4a, type: 3}
+  minX: 649
+  maxX: 711.7275
+  minZ: -263.37
+  maxZ: 203.7
+  spawnY: 0
+  statueCount: 5
+  spawnOffset: {x: 0, y: 18.4, z: 0}
+  spawnRotation: {x: 0, y: 180, z: 0}
+  spawnScale: {x: 20, y: 20, z: 20}
+  minDistanceBetweenStatues: 20
+  maxAttemptsPerStatue: 40
+  snapToNavMesh: 0
+  navMeshSearchRadius: 4
+--- !u!114 &410998839598589092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674481035065782276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f24768a3aef515498b92ca5d3008ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrumpSpawner
+  statuePrefab: {fileID: 7823329088287823042, guid: cfa42af1cebdbe7408bf8d9c71415985, type: 3}
+  corridorArea: {fileID: 0}
+  statueCount: 3
+  spawnHeightOffset: 0.05
+  spawnOffset: {x: 0, y: 10, z: 0}
+  spawnRotation: {x: 0, y: 180, z: 0}
+  spawnScale: {x: 10, y: 10, z: 10}
+  edgePadding: 2
+  sidePadding: 1.5
+  minDistanceBetweenStatues: 4
+  maxAttemptsPerStatue: 40
